@@ -5,26 +5,40 @@
 **user has ability to search any spa in their current city (Seattle)
 
 # Technologies used
-**NodeJs
-**Sequelize
-**HTML/CSS(Boostrap FRMK)
-**TRELLO
-**Postgres
-**Yelp API (Fusion)
+* NodeJs
+* Sequelize
+* HTML/CSS(Boostrap FRMK)
+* TRELLO
+* Postgres
+* Yelp API (Fusion)
 
 # User Stories
-**Client 1 wants to be able to log on to her acconut and see existing appointment(s)
-**Client 2 needs a quick update or reminder of current appointments and also the ability to cancel(delete) any
-**Client 3 wants to be able to search for any spa/salons in her current area (Seattle)
+* Client 1 wants to be able to log on to her acconut and see existing appointment(s)
+* Client 2 needs a quick update or reminder of current appointments and also the ability to cancel(delete) any
+* Client 3 wants to be able to search for any spa/salons in her current area (Seattle)
 
 # Steps (no specific order)
-**Incorporate buisness API (Google places or Yelp)
-**Run Migrations
-**Using Express-Authentication boilerplate
-**Stub out GET, POST, DELETE, PUT routes then fill them out accordingly
-**Use Trello to keep track of progress
-**Debugging
-**Deploy project on Heroku
+* Incorporate buisness API (Google places or Yelp)
+* Run Migrations
+* Using Express-Authentication boilerplate
+* Stub out GET, POST, DELETE, PUT routes then fill them out accordingly
+```
+router.get('/schedule', function(req, res) {
+    console.log('find rest');
+    res.render('appointment/schedule', {businesses: [null]});
+  });
+  
+```
+* Use Trello to keep track of progress
+
+[![Screen_Shot_2018-01-18_at_1.17.44_PM.png](https://s10.postimg.org/ajg14hheh/Screen_Shot_2018-01-18_at_1.17.44_PM.png)](https://postimg.org/image/eskr6nknp/)
+[![Screen_Shot_2018-01-18_at_1.18.03_PM.png](https://s10.postimg.org/f5c5cvd89/Screen_Shot_2018-01-18_at_1.18.03_PM.png)](https://postimg.org/image/4v9qdmncl/)
+[![Screen_Shot_2018-01-18_at_1.18.17_PM.png](https://s10.postimg.org/6zu3eqza1/Screen_Shot_2018-01-18_at_1.18.17_PM.png)](https://postimg.org/image/f5c5cwnit/)
+
+* Debugging
+* Deploy project on Heroku
+
+# Heroku Live Link
 
 
 
