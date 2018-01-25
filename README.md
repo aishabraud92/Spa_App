@@ -1,8 +1,8 @@
 # Objectives
-**create app that allows user to set and get updates on appontments
-**give user the ability to cancel(delete) appointments.
-**user has personal profile that updates current appointments
-**user has ability to search any spa in their current city (Seattle)
+* create app that allows user to set and get updates on appontments
+* give user the ability to cancel(delete) appointments.
+* user has personal profile that updates current appointments
+* user has ability to search any spa in their current city (Seattle)
 
 # Technologies used
 * NodeJs
