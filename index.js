@@ -43,8 +43,8 @@ app.get('/profile', isLoggedIn, function(req,res) {
   });
 });
 
-app.get('/about', isLoggedIn, function(req,res) {
-  res.render('welcome/about');
+app.get('/', isLoggedIn, function(req,res) {
+  res.render('welcome/home');
 });
 
 app.get('/schedule', isLoggedIn, function(req,res) {
