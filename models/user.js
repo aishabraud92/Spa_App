@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         len: {
           args: [6, 32],
-          msg: 'Password must be between 6 and 32 characters long'
+          msg: 'Password must be between 5 and 10 characters long'
         }
       }
     }

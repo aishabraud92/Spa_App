@@ -20,7 +20,6 @@ router.get('/signup', function(req, res){
 
 router.post('/signup', function(req, res, next){
   console.log('req.body is', req.body);
-  );
 
   db.user.findOrCreate({
     where: { email: req.body.email },
@@ -29,20 +28,20 @@ router.post('/signup', function(req, res, next){
       lastname: req.body.lastname,
       password: req.body.password
     }
-
   }).spread(function(user, wasCreated){
     if(wasCreated){
-      //good job, you didn't try to make a duplicate!
+      //successful login
       passport.authenticate('local', {
         successRedirect: '/profile',
         successFlash: 'Successfully logged in'
       })(req, res, next);
     }
     else {
-      //error, you tried to sign up when you should log in
+      //error login
       req.flash('error', 'Email already exists');
       res.redirect('/auth/login');
     }
+
   }).catch(function(err) {
     req.flash('error', err.message);
     res.redirect('/auth/signup');
@@ -71,11 +70,9 @@ router.post('/login', passport.authenticate('local', {
   falureRedirect: '/auth/login',
   failureFlash: 'Failed!'
 }));
-
 router.get('/signup', function(req, res){
   res.render('auth/signup');
 });
-
 router.post('/signup', function(req, res, next){
   console.log('req.body is', req.body);
   db.user.findOrCreate({
@@ -86,6 +83,7 @@ router.post('/signup', function(req, res, next){
       lastname: req.body.lastname,
       password: req.body.password
     }
+    
   }).spread(function(user, wasCreated){
     if(wasCreated){
      passport.authenticate('local', {
