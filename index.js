@@ -29,38 +29,38 @@ app.use(function(req, res, next){
 });
 
 app.get('/', function(req,res) {
-  res.render('./site/home');
+  res.render('./welcome/home');
 });
 
 app.get('/profile', isLoggedIn, function(req,res) {
   console.log(req.body);
-  db.spa.findAll({
+  db.appointments.findAll({
     where: {userId:req.user.id}
-  }).then(function(spa){
-    res.render('site/profile.ejs', {spas: spa });
+  }).then(function(appointments){
+    res.render('welcome/profile.ejs', {appointments: appointments });
   }).catch(function(err){
     res.send(404, err);
   });
 });
 
 app.get('/about', isLoggedIn, function(req,res) {
-  res.render('site/about');
+  res.render('welcome/about');
 });
 
 app.get('/schedule', isLoggedIn, function(req,res) {
-  res.render('spa/schedule');
+  res.render('spas/schedule');
 });
 
 app.get('/search', isLoggedIn, function(req, res) {
-  res.send("spa/search");
+  res.send("spas/search");
 });
 
 app.post('/schedule', isLoggedIn, function(req,res) {
-  db.spa.create ({
+  db.appointments.create ({
     name: req.body.service,
     nextnotice: req.body.date + " " + req.body.time,
     userId: req.user.id
-  }).then(function(spa) {
+  }).then(function(appointments) {
     res.redirect ("/profile");
   }).catch(function(err) {
     console.log("database error", err);
@@ -68,7 +68,7 @@ app.post('/schedule', isLoggedIn, function(req,res) {
 });
 
 app.use('/auth', require('./controllers/auth'));
-app.use('/spa', require('./controllers/spa'));
+app.use('/appointments', require('./controllers/appointments'));
 
 var server = app.listen(process.env.PORT || 3000);
 

@@ -41,11 +41,13 @@ router.post('/signup', function(req, res, next){
       req.flash('error', 'Email already exists');
       res.redirect('/auth/login');
     }
+
   }).catch(function(err) {
     req.flash('error', err.message);
     res.redirect('/auth/signup');
   });
 });
+
 router.get('/logout', function(req, res) {
   req.logout();
   req.flash('success', 'Successfully logged out');
@@ -61,6 +63,7 @@ var router = express.Router();
 router.get('/login', function(req, res){
   res.render('auth/login');
 });
+
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/profile',
   successFlash: 'Logged In!',
@@ -80,6 +83,7 @@ router.post('/signup', function(req, res, next){
       lastname: req.body.lastname,
       password: req.body.password
     }
+    
   }).spread(function(user, wasCreated){
     if(wasCreated){
      passport.authenticate('local', {

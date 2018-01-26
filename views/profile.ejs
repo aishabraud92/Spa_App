@@ -1,3 +1,21 @@
-<h2>Profile Page</h2>
+<h2>PROFILE PAGE</h2>
+	<div>
+		<h3>Welcome back, <%= currentUser.firstname %></h3>
+	  <a href='/schedule'><button type="button" class="btn btn-default btn-lng">Schedule an appointment today!</button></a>
 
-<a href="/">Home</a>
+	  <% if (appointments.length <=0) {%>
+	   <h2 class = "text-center">Appointments Empty</h2>
+	  <%} else {%>
+	  <% appointments.forEach(function(item) {%>
+	  <div class="list">
+	  <br>
+	      <ul>
+	          <li><h4><%= item.name %></h4></li>
+	          <li><h4><%= item.nextnotice %></h4></li>
+				</ul>
+					<a href="/appointments/<%=item.id%>" class="btn btn-danger cancel-appoinment"></a>
+		</div>
+		<% }) %>
+		<% }; %>
+	</div>
+</div>
