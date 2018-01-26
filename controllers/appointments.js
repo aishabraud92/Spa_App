@@ -28,7 +28,7 @@ router.get('/schedule', function(req, res) {
 
   //delete route
   router.delete('/:id', function(req, res) {
-        db.appointments.destroy({
+        db.appointment.destroy({
           where:{
             id: req.params.id}
           }).then(function(deleted) {
