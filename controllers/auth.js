@@ -24,8 +24,8 @@ router.post('/signup', function(req, res, next){
   db.user.findOrCreate({
     where: { email: req.body.email },
     defaults: {
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
+      firstname: req.body.name,
+      lastname: req.body.name,
       password: req.body.password
     }
   }).spread(function(user, wasCreated){
@@ -33,7 +33,9 @@ router.post('/signup', function(req, res, next){
       //successful login
       passport.authenticate('local', {
         successRedirect: '/profile',
-        successFlash: 'Successfully logged in'
+        successFlash: 'Successfully logged in',
+        failureRedirect: '/auth/signup',
+        failureFlash: 'Failed to sign up!'
       })(req, res, next);
     }
     else {
@@ -83,7 +85,7 @@ router.post('/signup', function(req, res, next){
       lastname: req.body.lastname,
       password: req.body.password
     }
-    
+
   }).spread(function(user, wasCreated){
     if(wasCreated){
      passport.authenticate('local', {

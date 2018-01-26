@@ -34,10 +34,8 @@ app.get('/', function(req,res) {
 
 app.get('/profile', isLoggedIn, function(req,res) {
   console.log(req.body);
-  db.appointments.findAll({
-    where: {userId:req.user.id}
-  }).then(function(appointments){
-    res.render('welcome/profile.ejs', {appointments: appointments });
+  db.appointment.findAll().then(function(appointments){
+    res.render('profile.ejs', {appointments: appointments });
   }).catch(function(err){
     res.send(404, err);
   });
@@ -56,7 +54,7 @@ app.get('/search', isLoggedIn, function(req, res) {
 });
 
 app.post('/schedule', isLoggedIn, function(req,res) {
-  db.appointments.create ({
+  db.appointment.create ({
     name: req.body.service,
     nextnotice: req.body.date + " " + req.body.time,
     userId: req.user.id

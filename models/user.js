@@ -1,28 +1,15 @@
 'use strict';
-var bcrypt = require('bcrypt');
+var bcrypt= require('bcrypt');
 
-module.exports = function(sequelize, DataTypes) {
+
+module.exports = (sequelize, DataTypes) => {
   var user = sequelize.define('user', {
     firstname: DataTypes.STRING,
     lastname: DataTypes.STRING,
-    email: {
-      type: DataTypes.STRING,
-      validate: {
-        isEmail: {
-          msg: 'Invalid email address format'
-        }
-      }
-    },
-    password: {
-      type: DataTypes.STRING,
-      validate: {
-        len: {
-          args: [6, 32],
-          msg: 'Password must be between 5 and 10 characters long'
-        }
-      }
-    }
-  }, { hooks: {
+    email: DataTypes.STRING,
+    password: DataTypes.STRING
+  }, {
+    hooks: {
       beforeCreate: function(pendingUser, options){
         if(pendingUser && pendingUser.password){
           var hash = bcrypt.hashSync(pendingUser.password, 10);
