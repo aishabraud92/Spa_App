@@ -40,6 +40,6 @@ router.get('/schedule', function(req, res) {
 
 # Heroku Live Link
 
-https://git.heroku.com/wdi16-project-2.git
+
 
 
