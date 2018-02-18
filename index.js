@@ -34,6 +34,7 @@ app.get('/', function(req,res) {
 
 app.get('/profile', isLoggedIn, function(req,res) {
   console.log(req.body);
+
   db.appointment.findAll().then(function(appointments){
     res.render('profile.ejs', {appointments: appointments });
   }).catch(function(err){
@@ -53,6 +54,7 @@ app.get('/search', isLoggedIn, function(req, res) {
   res.send("spas/search");
 });
 
+
 app.post('/schedule', isLoggedIn, function(req,res) {
   db.appointment.create ({
     name: req.body.service,
@@ -64,9 +66,26 @@ app.post('/schedule', isLoggedIn, function(req,res) {
     console.log("database error", err);
   });
 });
+app.get('/', function(req, res) {
+  var qs = {
+    s: 'Seattle Day Spas',
+    apikey: process.env.API_KEY
+  };
+  request({
+     url: 'https://api.yelp.com/v3/businesses/search',
+    qs: qs
+   }, function(error, response, body){
+    if (!error && response.statusCode == 200){
+       var dataObj = JSON.parse(body);
+       res.send(dataObj.Search);
+     }
+   });
+ });
 
 app.use('/auth', require('./controllers/auth'));
 app.use('/appointments', require('./controllers/appointments'));
+
+
 
 var server = app.listen(process.env.PORT || 3000);
 
