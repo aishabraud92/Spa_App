@@ -26,19 +26,6 @@ router.get('/schedule', function(req, res) {
     res.render('appointment/schedule', {businesses: [null]});
   });
 
-  //delete route
-  router.delete('/:id', function(req, res) {
-        db.spa.destroy({
-          where:{
-            id: req.params.id}
-          }).then(function(deleted) {
-            console.log('deleted = ', deleted);
-            res.send('all good');
-      }).catch(function(err) {
-            console.log('error', err);
-            res.send('failed', err);
-      });
-  });
 
 //yelp Results post
 router.post('/search', function(req, res) {
@@ -46,6 +33,46 @@ router.post('/search', function(req, res) {
     yelpSearch(req.body.spa, 'Seattle', function(businesses){
       res.render('spa/search', {businesses: businesses});
     });
+});
+router.get('/schedule', isLoggedIn, function(req, res) {
+  res.render('event/confirmed');
+});
+//post schedule after setup
+router.post('/schedule', isLoggedIn, function(req, res){
+  // res.send('working');
+  // console.log(req.body);
+  db.schedule.create({
+    course: req.body.spa,
+    date: req.body.date,
+    time: req.body.time,
+    userId: req.user.id
+  }).then(function(createdSchedule){
+    req.flash('success', 'Success!');
+    res.redirect('/profile');
+  }).catch(function(err){
+    res.send (err.message)
+  });
+});
+
+
+//delete id route
+router.delete('/:id', function(req, res) {
+  console.log('delete Route ID = ', req.params.id);
+  db.schedule.findOne({
+    where: {id: req.params.id}
+  }).then(function(schedule){
+    db.schedule.destroy({
+      where:{
+        id: req.params.id}
+      }).then(function(deleted){
+        console.log('deleted =', deleted);
+        res.send('working');
+      }).catch(function(err){
+        console.log('error', err);
+        res.send('fail', err);
+
+    });
+  });
 });
 
 

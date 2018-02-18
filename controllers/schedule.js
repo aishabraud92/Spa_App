@@ -13,7 +13,7 @@ router.post('/schedule', isLoggedIn, function(req, res){
   // res.send('working');
   // console.log(req.body);
   db.schedule.create({
-    course: req.body.course,
+    spa: req.body.spa,
     date: req.body.date,
     time: req.body.time,
     userId: req.user.id
