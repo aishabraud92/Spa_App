@@ -23,19 +23,19 @@ function yelpSearch(searchTerm, location, callback){
 
 router.get('/schedule', function(req, res) {
     console.log('find rest');
-    res.render('appointment/schedule', {businesses: [null]});
+    res.render('spa/schedule', {businesses: [null]});
   });
 
 
 //yelp Results post
-router.post('/search', function(req, res) {
+router.post('/results', function(req, res) {
     console.log(req.body);
     yelpSearch(req.body.spa, 'Seattle', function(businesses){
-      res.render('spa/search', {businesses: businesses});
+      res.render('spa/results', {businesses: businesses});
     });
 });
 router.get('/schedule', isLoggedIn, function(req, res) {
-  res.render('event/confirmed');
+  res.render('spa/confirmed');
 });
 //post schedule after setup
 router.post('/schedule', isLoggedIn, function(req, res){

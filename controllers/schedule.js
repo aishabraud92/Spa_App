@@ -6,7 +6,7 @@ var isLoggedIn = require('../middleware/isLoggedIn');
 var flash = require('connect-flash');
 
 router.get('/schedule', isLoggedIn, function(req, res) {
-  res.render('appoinments/schedule');
+  res.render('spa/schedule');
 });
 
 router.post('/schedule', isLoggedIn, function(req, res){
