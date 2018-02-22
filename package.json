@@ -1,10 +1,11 @@
 {
-  "name": "spa_app_project2",
+  "name": "Spa_App_project2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
     "bcrypt": "^1.0.3",
+    "cfg-js": "^0.1.1",
     "connect-flash": "^0.1.1",
     "dotenv": "^4.0.0",
     "ejs": "^2.5.7",
@@ -15,12 +16,14 @@
     "express-session": "^1.15.6",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.1",
+    "node-cron": "^1.2.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^6.4.1",
     "sequelize": "^4.32.1",
     "sequelize-cli": "^3.2.0",
-    "yelp-fusion": "^2.0.3"
+    "twilio": "^3.11.3",
+
   },
   "devDependencies": {},
   "scripts": {
@@ -35,5 +38,7 @@
   "bugs": {
     "url": "https://github.com/aishabraud92/Spa_App_Project2/issues"
   },
+
+
   "homepage": "https://github.com/aishabraud92/Spa_App_Project2#readme"
 }
