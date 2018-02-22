@@ -1,21 +1,15 @@
 require('dotenv').config();
-require
+
 var bodyParser = require('body-parser');
 var express = require('express');
 var ejsLayouts = require('express-ejs-layouts');
 var flash = require('connect-flash');
 var isLoggedIn = require('./middleware/isLoggedIn');
 var passport = require('./config/passportConfig');
-
 var session = require('express-session');
-var momentTimzone = require('moment-timezone');
-var moment = require('moment');
-var appointment = require('../models/appointment');
 var app = express();
 
-var getTimeZones = function() {
-  return momentTimeZone.tz.names();
-};
+
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -44,89 +38,32 @@ app.get('/profile', isLoggedIn, function(req, res){
 
 app.use('/auth', require('./controllers/auth'));
 
+//appointments displays on homepage
+app.get('/profile', isLoggedIn, function(req,res){
+  console.log(req.body);
 
-
-//GET: /appointments/created
-router.get('/create', function(req, res, next){
-  res.render('appointment/create', {
-    timeZones: getTimeZones(),
-    appointment: new appointment({name: '', phone:'',timeZone:'',time: ''})
-  });
 });
 
-// GET: /appointments/create
-router.get('/create', function(req, res, next) {
-  res.render('appointments/create', {
-    timeZones: getTimeZones(),
-    appointment: new Appointment({name: '',
-                                  phoneNumber: '',
-                                  notification: '',
-                                  timeZone: '',
-                                  time: ''})});
+
+
+//
+app.get('/appointment', isLoggedIn, function(req,res){
+  res.render('spa/appointment');
 });
 
-// POST: /appointments
-router.post('/', function(req, res, next) {
-  var name = req.body.name;
-  var phoneNumber = req.body.phoneNumber;
-  var notification = req.body.notification;
-  var timeZone = req.body.timeZone;
-  var time = moment(req.body.time, 'MM-DD-YYYY hh:mma');
-
-  var appointment = new Appointment({name: name,
-                                       phoneNumber: phoneNumber,
-                                       notification: notification,
-                                       timeZone: timeZone,
-                                       time: time});
-  appointment.save()
-    .then(function() {
-      res.redirect('/');
-    });
+app.get('/yelp', isLoggedIn, function(req,res){
+  res.render('spa/yelp')
+});
+app.get('/confirmed', isLoggedIn, function(req,res){
+  res.render('spa/confirmed');
+});
+app.get('/search', isLoggedIn, function(req,res){
+  res.render('spa/search');
 });
 
-// GET: /appointments/:id/edit
-router.get('/:id/edit', function(req, res, next) {
-  const id = req.params.id;
-  Appointment.findOne({_id: id})
-    .then(function(appointment) {
-      res.render('appointment/edit', {timeZones: getTimeZones(),
-                                       appointment: appointment});
-    });
-});
+app.use('/auth', require('./controllers/auth'));
+app.use('/spa', require('./controllers/spa'));
 
-// POST: /appointments/:id/edit
-router.post('/:id/edit', function(req, res, next) {
-  var id = req.params.id;
-  var name = req.body.name;
-  var phoneNumber = req.body.phoneNumber;
-  var notification = req.body.notification;
-  var timeZone = req.body.timeZone;
-  var time = moment(req.body.time, 'MM-DD-YYYY hh:mma');
-
-  Appointment.findOne({_id: id})
-    .then(function(appointment) {
-      appointment.name = name;
-      appointment.number = number;
-      appointment.notification = notification;
-      appointment.timeZone = timeZone;
-      appointment.time = time;
-
-      appointment.save()
-        .then(function() {
-          res.redirect('/');
-        });
-    });
-});
-
-// POST: /appointments/:id/delete
-router.post('/:id/delete', function(req, res, next) {
-  const id = req.params.id;
-
-  Appointment.remove({_id: id})
-    .then(function() {
-      res.redirect('/');
-    });
-});
 
 
 
