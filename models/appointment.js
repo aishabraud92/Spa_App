@@ -1,15 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var appointment = sequelize.define('appointment', {
+  var schedule = sequelize.define('schedule', {
     date: DataTypes.DATE,
     time: DataTypes.TIME,
-    spa: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
+    course: DataTypes.STRING
+
   });
-  return appointment;
+      schedule.associate = function(models) {
+       models.schedule.belongsTo(models.user);
+     };
+  return schedule;
 };

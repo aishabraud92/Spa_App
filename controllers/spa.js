@@ -21,11 +21,11 @@ function yelpSearch(searchTerm, location, callback){
     console.log(e);
   });
 }
-//
-// router.get('/', function(req, res) {
-//   console.log();
-//   res.send('api page');
-// });
+
+router.get('/', function(req, res) {
+  console.log();
+  res.send('api page');
+});
 
 router.get('/appointment', function(req, res) {
   console.log('find rest route reach');

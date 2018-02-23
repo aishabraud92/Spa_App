@@ -1,12 +1,13 @@
 require('dotenv').config();
-
 var bodyParser = require('body-parser');
 var express = require('express');
+var db = require('./models');
 var ejsLayouts = require('express-ejs-layouts');
 var flash = require('connect-flash');
 var isLoggedIn = require('./middleware/isLoggedIn');
 var passport = require('./config/passportConfig');
 var session = require('express-session');
+var request = require('request');
 var app = express();
 
 
@@ -32,19 +33,21 @@ app.get('/', function(req, res){
   res.render('home');
 });
 
-app.get('/profile', isLoggedIn, function(req, res){
-  res.render('profile');
-});
-
 app.use('/auth', require('./controllers/auth'));
 
-//appointments displays on homepage
+//appointments displays on profile
 app.get('/profile', isLoggedIn, function(req,res){
   console.log(req.body);
-
+//db
+db.appointment.findAll({
+  where: {userId:res.locals.currentUser.dataValues.id}
+}).then(function(appointment){
+  console.log('comment appointment', appointment);
+  res.render('profile', {appointment: appointment});
+}).catch(function(err){
+  res.send(404, err)
 });
-
-
+});
 
 //
 app.get('/appointment', isLoggedIn, function(req,res){
@@ -63,7 +66,7 @@ app.get('/search', isLoggedIn, function(req,res){
 
 app.use('/auth', require('./controllers/auth'));
 app.use('/spa', require('./controllers/spa'));
-
+app.use('/appointment', require('./controllers/appointment'));
 
 
 
