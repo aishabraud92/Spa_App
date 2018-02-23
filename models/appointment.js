@@ -1,13 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var schedule = sequelize.define('schedule', {
+  var appointment = sequelize.define('appointment', {
     date: DataTypes.DATE,
     time: DataTypes.TIME,
-    course: DataTypes.STRING
-
+    course: DataTypes.STRING,
+    userId: DataTypes.INTEGER
   });
-      schedule.associate = function(models) {
-       models.schedule.belongsTo(models.user);
+      appointment.associate = function(models) {
+       models.appointment.belongsTo(models.user);
      };
-  return schedule;
+  return appointment;
 };

@@ -32,10 +32,10 @@ router.get('/appointment', function(req, res) {
   res.render('spa/appointment', {businesses: [null]});
 });
 //yelp post route
-router.post('/active', function(req, res) {
+router.post('/yelp', function(req, res) {
   console.log(req.body);
   yelpSearch(req.body.course, 'Seattle', function(businesses){
-    res.render('spa/active', {businesses: businesses});
+    res.render('spa/yelp', {businesses: businesses});
   });
 });
 router.get('/appointment', isLoggedIn, function(req, res) {

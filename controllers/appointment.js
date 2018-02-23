@@ -10,14 +10,12 @@ router.get('/appointment', isLoggedIn, function(req, res) {
 });
 
 router.post('/appointment', isLoggedIn, function(req, res){
-  // res.send('working');
-  // console.log(req.body);
   db.appointment.create({
-    course: req.body.course,
+    spa: req.body.spa,
     date: req.body.date,
     time: req.body.time,
     userId: req.user.id
-  }).then(function(createdappointment){
+  }).then(function(createdAppointment){
     res.redirect('/appointment/');
   }).catch(function(err){
     res.send (err.message)

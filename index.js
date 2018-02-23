@@ -38,9 +38,12 @@ app.use('/auth', require('./controllers/auth'));
 //appointments displays on profile
 app.get('/profile', isLoggedIn, function(req,res){
   console.log(req.body);
+  console.log(res.locals.currentUser.dataValues.id);
+
 //db
-db.appointment.findAll({
-  where: {userId:res.locals.currentUser.dataValues.id}
+db.appointment.findOne({
+  // where: {name:res.locals.currentUser.dataValues.id}
+  where: {name:'name'}
 }).then(function(appointment){
   console.log('comment appointment', appointment);
   res.render('profile', {appointment: appointment});
@@ -49,7 +52,7 @@ db.appointment.findAll({
 });
 });
 
-//
+
 app.get('/appointment', isLoggedIn, function(req,res){
   res.render('spa/appointment');
 });
@@ -57,16 +60,22 @@ app.get('/appointment', isLoggedIn, function(req,res){
 app.get('/yelp', isLoggedIn, function(req,res){
   res.render('spa/yelp')
 });
+//app.post('/yelp', isLoggedIn, function(req,res){
+  //res.send('spa/yelp')
+//});
 app.get('/confirmed', isLoggedIn, function(req,res){
   res.render('spa/confirmed');
 });
 app.get('/search', isLoggedIn, function(req,res){
   res.render('spa/search');
 });
+//app.post('/search', isLoggedIn, function(req,res){
+  //res.render('spa/search');
+//});
 
 app.use('/auth', require('./controllers/auth'));
 app.use('/spa', require('./controllers/spa'));
-app.use('/appointment', require('./controllers/appointment'));
+//app.use('/appointment', require('./controllers/appointment'));
 
 
 
